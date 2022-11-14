@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% block title %}
+{{title}}
+{% endblock  %}
+
+{% block content%}
+<h1>{{ title  }}</h1>
+      {% for post in news %}
+          <div class="alert alert-light">
+           <h3>{{post.title}}</h3>
+             <p>{{post.text|striptags|truncatechars:200}}</p>
+              <div class="row">
+                  <div>
+                      <img src="{{ post.author.profile.img.url}}" alt="{{post.author}}" class="user_images">
+                  </div>
+                  <div class="mt-2">
+                  <span class="text-muted">Публикация: {{ post.date|date:"d E Y в H:i" }}</span>
+                {%if post.author%}
+            <p><b>Author:</b><a href="{%  url 'user_news' post.author %}">{{post.author}}</a></p>
+             {%else%}
+            <p><b>Author:</b> <mark>Admin</mark></p>
+            {%endif%}
+                  </div>
+              </div>
+              <a href="{% url 'news_detail' post.id%}" class="btn btn-outline-warning">Читать далее</a>
+              </div>
+ {% endfor %}
+{%if is_paginated%}
+{%if page_obj.has_previous %}
+<a href="{% url 'homepage' %}" class="btn btn-outline-danger">Начало</a>
+<a href="?page={{page_obj.previous_page_number}}" class="btn btn-outline-danger">Предыдущая</a>
+{%endif %}
+
+{% for num in page_obj.paginator.page_range%}
+  {%if num == page_obj.number%}
+     <button class="btn btn-danger">{{num}}</button>
+{%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+        <a href="?page={{num}}" class="btn btn-outline-danger">{{ num }}</a>
+{%endif%}
+{%endfor%}
+
+{%if page_obj.has_next %}
+<a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-danger">Следующая</a>
+<a href="?page={{page_obj.paginator.num_pages}}" class="btn btn-outline-danger">Последняя</a>
+{%endif%}
+{%endif %}
+{% endblock %}
+{%block aside%}
+<h4 class="mt-2">Interesting facts</h4>
+<img src="https://i03.fotocdn.net/s119/9c4a25d1afe85016/public_pin_l/2730300326.jpg" class="img-thumbnail">
+<button class="btn btn-warning">See more</button>
+<img src="https://pic.rutubelist.ru/video/17/b1/17b100a0bcbc6e5e8d11101cde21aca7.jpg" class="img-thumbnail mt-4">
+<button class="btn btn-warning">See more</button>
+{% endblock %}

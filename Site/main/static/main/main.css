@@ -1,0 +1,47 @@
+body {
+ background: #f2f2f2;
+}
+.alert-light {
+border-color: #f0f0f0:
+}
+.form-register {
+padding: 20px;
+background: #f0f0f0;
+border: 1px solid silver;
+margin-top: 20px;
+}
+footer {
+ width: 70%;
+ margin-left: 15%;
+}
+.form-register .helptext {color:#b7b7b7}
+.form-register ul.errorlist{
+color: #ca5858;
+font-weight: bold;
+}
+.form-register.auth input    {
+display: block;
+width: 50%;
+margin-top: 2px;
+border: 1px solid silver;
+padding: 2%;
+height: 40px;
+
+}
+.user_images{
+width: 64px;
+height: 64px;
+border-radius: 50%;
+margin-right: 15px;
+margin-left: 10px;
+}
+.form-register.auth textarea
+{
+width: 450px;
+height: 300px;
+margin-top: 2px;
+border: 1px solid silver;
+padding: 2%;
+display: block;
+
+}

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title%}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'homepage' %}">Site</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+          </li>
+        </ul>
+      </div>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'user' %}" class="mr-2">
+            <button class="btn btn-outline-info pull-right">Войти</button>
+        </a>
+        <a href="{% url 'reg'%}">
+            <button class="btn btn-outline-warning pull-right">Регистрация</button>
+        </a>
+        {% else %}
+        <a href="{% url 'news_add' %}" class="mr-2">
+            <button class="btn btn-outline-secondary pull-right">Добавить статью</button>
+        </a>
+        <a href="{% url 'profile' %}" class="mr-2">
+            <button class="btn btn-outline-info pull-right">Профиль</button>
+        </a>
+        <a href="{% url 'exit'%}">
+            <button class="btn btn-outline-warning pull-right">Выйти</button>
+            {%endif%}
+        </a>
+
+
+
+    </div>
+  </nav>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages%}
+               {% for mess in messages %}
+            <div class="alert alert-success">{{mess}}</div>
+            {% endfor %}
+            {% endif %}
+            {% block content%}
+   {% endblock %}
+        </div>
+        <aside class="col-md-4">
+             {% block aside%}
+
+             {% endblock %}
+        </aside>
+    </div>
+</div>
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+    </ul>
+    <p class="text-center text-muted">© 2022 Company, Inc</p>
+  </footer>
+</div>
+</div>
+</body>
+</html>
